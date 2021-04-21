@@ -141,7 +141,7 @@ Rebase with **master** branch:
 git rebase master
 ```
 
-Rebase current branch in **interactive** mode:
+Rebase current branch in **interactive** mode (example 1):
 
 ```bash
 git rebase -i HEAD~3
@@ -258,3 +258,9 @@ Search with **grep** in **git**:
 ```bash
 git grep 'my_secret_password'
 ```
+
+# Examples
+
+- Example 1 - remove empty commit using `git rebase -i`
+ - read [README](./EXAMPLE_1.md) for details
+ - branch [rebase_interactive](https://github.com/kaczla/git-tips/tree/rebase_interactive)
