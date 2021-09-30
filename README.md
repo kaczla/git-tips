@@ -27,7 +27,7 @@ $ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 $ chsh -s $(which zsh)
 ```
 
-Auto update:
+Enable auto updates - set `DISABLE_UPDATE_PROMPT` to `true`:
 
 ```bash
 $ less ~/.zshrc
@@ -36,7 +36,7 @@ DISABLE_UPDATE_PROMPT="true"
 ...
 ```
 
-[Plugins](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins):
+[Plugins](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins) (see GitHub wiki for more plugins) can be activated in `plugins` sections:
 
 ```bash
 $ less ~/.zshrc
@@ -45,10 +45,20 @@ plugins=(git ripgrep)
 ...
 ```
 
-Git commands:
+See other plugins:
+[git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git),
+[ripgrep](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rg),
+[python](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python),
+[pip](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/pip),
+[rust](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rust),
+[docker](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker),
+[docker-compose](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose)
+
+Git commands/aliases with Oh My Zsh [git](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git) plugin:
 
 | Short | Command |
 | ----- | ------- |
+| g     | git |
 | gst   | git status |
 | ga    | git add |
 | gco   | git checkout |
@@ -59,50 +69,11 @@ Git commands:
 
 # Git global hooks - git 2.9+
 
-Pre-push script: [pre-push](./my-git-hooks/hooks/pre-push) - will warn if pushing to protected branch, script below:
-
-```bash
-#!/usr/bin/env bash
-# Warn before pushing to protected branches
-# Make script executable with chmod +x pre-push
-# Bypass with git push --no-verify
-# Change default git hooks:
-# git config --global core.hooksPath /path/to/my/centralized/hooks
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
-PROTECTED_BRANCHES="^(master|dev|release-*|patch-*)"
-if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
-  read -p "[LOG] Are you sure you want to push to \"$BRANCH\" ? (y/n): " -n 1 -r < /dev/tty
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
-    exit 0
-  fi
-  echo "[ERR] Push aborted."
-  exit 1
-fi
-exit 0
-```
-
-Download and enable **global hooks**:
-
-```
-cd ~
-mkdir -p ~/.my-git-hooks/hooks
-wget 'https://raw.githubusercontent.com/kaczla/git-tips/master/my-git-hooks/hooks/pre-push' -O ~/.my-git-hooks/hooks/pre-push
-chmod u+x ~/.my-git-hooks/hooks/pre-push
-git config --global core.hooksPath "$(realpath ~)/.my-git-hooks/hooks"
-cd -
-```
-
-Now, **global hooks** should be enabled, to check run command:
-
-```bash
-$ git config --get core.hookspath
-/home/MY_USER_NAME/.my-git-hooks/hooks
-```
+Pre-push script: `pre-push` - will warn if pushing to protected branch, script is available in [GitHub repository](https://github.com/kaczla/git-hooks).
 
 # English messages
 
-Add alias in Shell RC file (bash - `.bashrc`, zsh - `.zshrc`):
+To enable english messages add alias in Shell RC file (bash - `.bashrc`, zsh - `.zshrc`) at the end of the file (to avoid anomalies):
 
 ```bash
 alias git='LANGUAGE=en_US.UTF-8 git'
@@ -116,6 +87,9 @@ alias diff_git_word='git_compare_word'
 alias git_compare='git diff --no-index'
 alias diff_git='git_compare'
 ```
+
+# Git external tools
+- [GitUI](https://github.com/Extrawurst/gitui) provides you with the comfort of a git GUI but right in your terminal
 
 # Commands
 
@@ -172,10 +146,10 @@ gd HEAD~2
 Comparing **master** and **develop** branches:
 
 ```
-git diff master..diff-me
+git diff master..develop
 ```
 
-Comparing 2 non-git files: **1.txt** and **2.txt**:
+Comparing 2 **non-git** files: **1.txt** and **2.txt**:
 
 ```bash
 git diff --no-index --word-index 1.txt 2.txt
@@ -187,7 +161,7 @@ shorter:
 gdw --no-index 1.txt 2.txt
 ```
 
-Comparing 2 non-git directories **dir1** and **dir2**:
+Comparing 2 **non-git** directories **dir1** and **dir2**:
 
 ```bash
 git diff --no-index dir1 dir2
@@ -221,7 +195,7 @@ git log --oneline
 
 ## git stash
 
-Stash uncommited changes:
+Stash uncommitted changes:
 
 ```bash
 git stash
