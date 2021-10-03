@@ -2,6 +2,8 @@
 
 This repository contains some tips for `git`.
 
+Ad some message in README.
+
 # Oh My Zsh
 
 [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) is an open source, community-driven framework for managing your zsh configuration.
