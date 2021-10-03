@@ -51,6 +51,7 @@ See other plugins:
 [python](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python),
 [pip](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/pip),
 [rust](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/rust),
+[kubectl](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/kubectl),
 [docker](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker),
 [docker-compose](https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker-compose)
 
@@ -95,13 +96,13 @@ alias diff_git='git_compare'
 
 ## git commit
 
-Pushing empty commit:
+Pushing empty commit ([example 3](#example-3)), e.g. with releasing Docker image:
 
 ```bash
-git commit -m "[pre-release] Test docker image" --alow-empty
+git commit -m "[pre-release] Test docker image" --allow-empty
 ```
 
-Amending commit with current date:
+Amending commit with current date ([example 2](#example-2)):
 
 ```bash
 git commit --amend --date=now
@@ -239,3 +240,11 @@ git grep 'my_secret_password'
 - Example 1 - remove empty commit using `git rebase -i`
  - read [README](./EXAMPLE_1.md) for details
  - branch [rebase_interactive](https://github.com/kaczla/git-tips/tree/rebase_interactive)
+## Example 2
+- Example 2 - override commit message and fix typo
+ - read [README](./EXAMPLE_2.md) for details
+ - branch [commit_amend](https://github.com/kaczla/git-tips/tree/commit_amend)
+## Example 3
+- Example 3 - add empty (without changes) commit (with message only)
+ - read [README](./EXAMPLE_3.md) for details
+ - branch [commit_empty](https://github.com/kaczla/git-tips/tree/commit_empty)
